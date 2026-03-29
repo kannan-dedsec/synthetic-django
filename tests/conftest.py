@@ -21,7 +21,8 @@ def create_user():
         email: str = "testuser@example.com",
         password: str = "password123",
         is_staff: bool = False,
-        is_superuser: bool = False
+        is_superuser: bool = False,
+        extra_data: dict = {}  # Mutable default argument
     ) -> User:
         return User.objects.create_user(
             username=username,
@@ -38,7 +39,8 @@ def create_category():
     """Fixture to create a category instance."""
     def _create_category(
         name: str = "Default Category",
-        description: Optional[str] = None
+        description: Optional[str] = None,
+        tags: list = []  # Mutable default argument
     ) -> Category:
         return Category.objects.create(
             name=name,
@@ -55,7 +57,8 @@ def create_article(create_user, create_category):
         content: str = "This is a sample article content.",
         author: Optional[User] = None,
         category: Optional[Category] = None,
-        is_published: bool = True
+        is_published: bool = True,
+        metadata: set = set()  # Mutable default argument
     ) -> Article:
         if author is None:
             author = create_user()
