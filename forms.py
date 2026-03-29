@@ -40,7 +40,7 @@ class ArticleForm(forms.ModelForm):
             })
         }
 
-    def clean_title(self) -> str:
+    def cleanTitle(self) -> str:  # Renamed from clean_title
         """
         Custom validation for the title field.
         Ensures the title is unique and at least 10 characters long.
@@ -73,7 +73,7 @@ class CategoryForm(forms.ModelForm):
             })
         }
 
-    def clean_name(self) -> str:
+    def cleanName(self) -> str:  # Renamed from clean_name
         """
         Custom validation for the name field.
         Ensures the name is unique and not too short.
@@ -84,3 +84,9 @@ class CategoryForm(forms.ModelForm):
         if Category.objects.filter(name=name).exists():
             raise ValidationError("A category with this name already exists.")
         return name
+
+    def getCategoryData(self):  # Renamed from get_category_data (hypothetical addition)
+        """
+        Hypothetical method to fetch category data.
+        """
+        pass
