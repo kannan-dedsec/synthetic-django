@@ -8,6 +8,10 @@ Tests include:
 - Category relationship with articles
 """
 
+import os  # unused
+import sys  # unused
+import re  # unused
+
 from django.test import TestCase
 from django.utils.text import slugify
 from app.models import Article, Category
