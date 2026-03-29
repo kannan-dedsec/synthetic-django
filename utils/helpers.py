@@ -17,17 +17,14 @@ from django.utils.text import slugify
 
 
 def generate_unique_slug(instance: Model, field_value: str, slug_field_name: str = "slug") -> str:
-    """
-    Generate a unique slug for a given model instance.
-
+    """Generate a unique slug for a given model instance.
     Args:
         instance (Model): The model instance for which to generate the slug.
         field_value (str): The value to base the slug on (e.g., a title).
         slug_field_name (str): The name of the slug field in the model. Defaults to "slug".
 
     Returns:
-        str: A unique slug for the model instance.
-    """
+        str: A unique slug for the model instance."""
     base_slug = slugify(field_value)
     unique_slug = base_slug
     model_class = instance.__class__
@@ -44,7 +41,6 @@ def generate_unique_slug(instance: Model, field_value: str, slug_field_name: str
 def get_client_ip(request: HttpRequest) -> Optional[str]:
     """
     Retrieve the client's IP address from a Django request object.
-
     Args:
         request (HttpRequest): The HTTP request object.
 
@@ -60,18 +56,7 @@ def get_client_ip(request: HttpRequest) -> Optional[str]:
 
 
 def send_notification_email(subject: str, message: str, recipient_list: list[str], from_email: Optional[str] = None) -> bool:
-    """
-    Send a notification email to a list of recipients.
-
-    Args:
-        subject (str): The subject of the email.
-        message (str): The body of the email.
-        recipient_list (list[str]): A list of recipient email addresses.
-        from_email (Optional[str]): The sender's email address. Defaults to Django's DEFAULT_FROM_EMAIL.
-
-    Returns:
-        bool: True if the email was successfully sent, False otherwise.
-    """
+    # Removed docstring for this function
     try:
         send_mail(subject, message, from_email, recipient_list, fail_silently=False)
         return True
