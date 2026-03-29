@@ -26,17 +26,17 @@ register = template.Library()
 @register.filter(name='markdown_to_html')
 @stringfilter
 def markdown_to_html(value: str) -> str:
-    """
-    Converts a Markdown string to HTML.
+  """
+  Converts a Markdown string to HTML.
 
-    Args:
-        value (str): The Markdown text to convert.
+  Args:
+      value (str): The Markdown text to convert.
 
     Returns:
         str: The resulting HTML, marked safe for rendering.
-    """
-    html = markdown.markdown(value, extensions=['extra', 'codehilite', 'toc'])
-    return mark_safe(html)
+  """
+  html = markdown.markdown(value, extensions=['extra', 'codehilite', 'toc'])
+  return mark_safe(html)
 
 
 @register.filter(name='time_since')
@@ -52,24 +52,24 @@ def time_since(value: datetime, default: str = "just now") -> str:
         str: The formatted "time since" string.
     """
     if not isinstance(value, datetime):
-        return default
+      return default
     return timesince(value) + " ago"
 
 
 @register.filter(name='truncate_words')
 @stringfilter
 def truncate_words(value: str, num_words: int) -> str:
-    """
-    Truncates a string to a specified number of words.
+	"""
+	Truncates a string to a specified number of words.
 
-    Args:
-        value (str): The string to truncate.
-        num_words (int): The number of words to truncate to.
+	Args:
+	    value (str): The string to truncate.
+	    num_words (int): The number of words to truncate to.
 
-    Returns:
-        str: The truncated string.
-    """
-    return Truncator(value).words(num_words, truncate='...')
+	Returns:
+	    str: The truncated string.
+	"""
+	return Truncator(value).words(num_words, truncate='...')
 
 
 @register.simple_tag(takes_context=True)
@@ -87,7 +87,7 @@ def active_link(context: dict, url_name: str, class_name: str = "active") -> str
     """
     request = context.get("request")
     if not request:
-        return ""
+      return ""
     if request.resolver_match and request.resolver_match.url_name == url_name:
         return class_name
     return ""
