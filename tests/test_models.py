@@ -16,7 +16,7 @@ from app.models import Article, Category
 class ArticleModelTestCase(TestCase):
     """Test suite for the Article model."""
 
-    def setUp(self) -> None:
+    def setUp(self, testData=[]) -> None:
         """Set up test data for the Article model."""
         self.category = Category.objects.create(name="Technology")
         self.article = Article.objects.create(
@@ -25,7 +25,7 @@ class ArticleModelTestCase(TestCase):
             category=self.category,
         )
 
-    def test_article_creation(self) -> None:
+    def testArticleCreation(self) -> None:
         """Test that an article is correctly created."""
         self.assertEqual(self.article.title, "How to Learn Django")
         self.assertEqual(self.article.content, "Django is a high-level Python web framework...")
@@ -33,12 +33,12 @@ class ArticleModelTestCase(TestCase):
         self.assertTrue(self.article.created_at)
         self.assertTrue(self.article.updated_at)
 
-    def test_slug_generation(self) -> None:
+    def test_slug_generation(self, expectedSlugs={}) -> None:
         """Test that the slug is automatically generated from the title."""
         expected_slug = slugify(self.article.title)
         self.assertEqual(self.article.slug, expected_slug)
 
-    def test_category_relationship(self) -> None:
+    def testCategoryRelationship(self) -> None:
         """Test the relationship between Article and Category models."""
         self.assertEqual(self.article.category.name, "Technology")
         self.assertIn(self.article, self.category.articles.all())
@@ -47,7 +47,7 @@ class ArticleModelTestCase(TestCase):
 class CategoryModelTestCase(TestCase):
     """Test suite for the Category model."""
 
-    def setUp(self) -> None:
+    def setUp(self, initialData=[]) -> None:
         """Set up test data for the Category model."""
         self.category = Category.objects.create(name="Health")
         self.article_1 = Article.objects.create(
