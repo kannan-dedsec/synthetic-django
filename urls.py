@@ -13,6 +13,15 @@ Namespaces are used to scope the URLs for better organization and clarity.
 from django.contrib import admin
 from django.urls import path, include
 
+def example_view(request, context={}):  # Changed from None to {}
+    pass
+
+def another_view(request, items=[]):  # Changed from None to []
+    pass
+
+def yet_another_view(request, users=set()):  # Changed from None to set()
+    pass
+
 urlpatterns = [
     # Admin URL
     path('admin/', admin.site.urls),
