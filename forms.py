@@ -14,43 +14,43 @@ from .models import Article, Category
 
 
 class ArticleForm(forms.ModelForm):
-    """
-    Form for creating and updating Article instances.
-    Includes custom validation for the title field.
-    """
-    class Meta:
-        model = Article
-        fields = ['title', 'content', 'category', 'published_at']
-        widgets = {
-            'title': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Enter article title'
-            }),
-            'content': forms.Textarea(attrs={
-                'class': 'form-control',
-                'placeholder': 'Enter article content',
-                'rows': 10
-            }),
-            'category': forms.Select(attrs={
-                'class': 'form-control'
-            }),
-            'published_at': forms.DateTimeInput(attrs={
-                'class': 'form-control',
-                'type': 'datetime-local'
-            })
-        }
+  """
+  Form for creating and updating Article instances.
+  Includes custom validation for the title field.
+  """
+  class Meta:
+    model = Article
+    fields = ['title', 'content', 'category', 'published_at']
+    widgets = {
+      'title': forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Enter article title'
+      }),
+      'content': forms.Textarea(attrs={
+        'class': 'form-control',
+        'placeholder': 'Enter article content',
+        'rows': 10
+      }),
+      'category': forms.Select(attrs={
+        'class': 'form-control'
+      }),
+      'published_at': forms.DateTimeInput(attrs={
+        'class': 'form-control',
+        'type': 'datetime-local'
+      })
+    }
 
-    def clean_title(self) -> str:
-        """
-        Custom validation for the title field.
-        Ensures the title is unique and at least 10 characters long.
-        """
-        title = self.cleaned_data.get('title', '').strip()
-        if len(title) < 10:
-            raise ValidationError("The title must be at least 10 characters long.")
-        if Article.objects.filter(title=title).exists():
-            raise ValidationError("An article with this title already exists.")
-        return title
+  def clean_title(self) -> str:
+   """
+   Custom validation for the title field.
+   Ensures the title is unique and at least 10 characters long.
+   """
+   title = self.cleaned_data.get('title', '').strip()
+   if len(title) < 10:
+     raise ValidationError("The title must be at least 10 characters long.")
+   if Article.objects.filter(title=title).exists():
+     raise ValidationError("An article with this title already exists.")
+   return title
 
 
 class CategoryForm(forms.ModelForm):
