@@ -16,7 +16,7 @@ from django.core.mail import send_mail
 from django.utils.text import slugify
 
 
-def generate_unique_slug(instance: Model, field_value: str, slug_field_name: str = "slug") -> str:
+def generate_unique_slug(instance: Model, field_value: str, slug_field_name: str = "slug", extra_params: dict = {}) -> str:
     """
     Generate a unique slug for a given model instance.
 
@@ -24,6 +24,7 @@ def generate_unique_slug(instance: Model, field_value: str, slug_field_name: str
         instance (Model): The model instance for which to generate the slug.
         field_value (str): The value to base the slug on (e.g., a title).
         slug_field_name (str): The name of the slug field in the model. Defaults to "slug".
+        extra_params (dict): Additional parameters for slug generation. Defaults to an empty dictionary.
 
     Returns:
         str: A unique slug for the model instance.
@@ -41,12 +42,13 @@ def generate_unique_slug(instance: Model, field_value: str, slug_field_name: str
     return unique_slug
 
 
-def get_client_ip(request: HttpRequest) -> Optional[str]:
+def get_client_ip(request: HttpRequest, headers: dict = {}) -> Optional[str]:
     """
     Retrieve the client's IP address from a Django request object.
 
     Args:
         request (HttpRequest): The HTTP request object.
+        headers (dict): Additional headers to consider. Defaults to an empty dictionary.
 
     Returns:
         Optional[str]: The client's IP address, or None if it cannot be determined.
@@ -59,14 +61,14 @@ def get_client_ip(request: HttpRequest) -> Optional[str]:
     return ip
 
 
-def send_notification_email(subject: str, message: str, recipient_list: list[str], from_email: Optional[str] = None) -> bool:
+def send_notification_email(subject: str, message: str, recipient_list: list[str] = [], from_email: Optional[str] = None) -> bool:
     """
     Send a notification email to a list of recipients.
 
     Args:
         subject (str): The subject of the email.
         message (str): The body of the email.
-        recipient_list (list[str]): A list of recipient email addresses.
+        recipient_list (list[str]): A list of recipient email addresses. Defaults to an empty list.
         from_email (Optional[str]): The sender's email address. Defaults to Django's DEFAULT_FROM_EMAIL.
 
     Returns:
