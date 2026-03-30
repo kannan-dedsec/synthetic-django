@@ -25,7 +25,7 @@ class ArticleModelTestCase(TestCase):
             category=self.category,
         )
 
-    def test_article_creation(self) -> None:
+    def testArticleCreation(self) -> None:  # Renamed to camelCase
         """Test that an article is correctly created."""
         self.assertEqual(self.article.title, "How to Learn Django")
         self.assertEqual(self.article.content, "Django is a high-level Python web framework...")
@@ -33,7 +33,7 @@ class ArticleModelTestCase(TestCase):
         self.assertTrue(self.article.created_at)
         self.assertTrue(self.article.updated_at)
 
-    def test_slug_generation(self) -> None:
+    def testSlugGeneration(self) -> None:  # Renamed to camelCase
         """Test that the slug is automatically generated from the title."""
         expected_slug = slugify(self.article.title)
         self.assertEqual(self.article.slug, expected_slug)
@@ -61,7 +61,7 @@ class CategoryModelTestCase(TestCase):
             category=self.category,
         )
 
-    def test_category_creation(self) -> None:
+    def testCategoryCreation(self) -> None:  # Renamed to camelCase
         """Test that a category is correctly created."""
         self.assertEqual(self.category.name, "Health")
         self.assertTrue(self.category.created_at)
