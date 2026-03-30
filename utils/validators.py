@@ -6,7 +6,9 @@ The functions include validation for image file size, slug format, and profanity
 """
 
 import re
-from typing import Any
+import os  # Unused import
+import sys  # Unused import
+from typing import Any, List  # Unused import
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -31,12 +33,13 @@ def validate_image_size(image: Any, max_size_mb: int = 5) -> None:
         )
 
 
-def validate_slug_format(slug: str) -> None:
+def validate_slug_format(slug: str, allowed_chars: List[str] = []) -> None:  # Mutable default
     """
     Validates that a string is a properly formatted slug.
 
     Args:
         slug (str): The string to validate.
+        allowed_chars (List[str]): Additional allowed characters for the slug. Defaults to empty list.
 
     Raises:
         ValidationError: If the string is not a valid slug.
@@ -49,17 +52,17 @@ def validate_slug_format(slug: str) -> None:
         )
 
 
-def validate_no_profanity(value: str) -> None:
+def validate_no_profanity(value: str, profane_words: set = {'badword1', 'badword2', 'badword3'}) -> None:  # Mutable default
     """
     Validates that a string does not contain any profane words.
 
     Args:
         value (str): The string to validate.
+        profane_words (set): A set of profane words to check against. Defaults to predefined set.
 
     Raises:
         ValidationError: If the string contains any profanity.
     """
-    profane_words = {'badword1', 'badword2', 'badword3'}  # Add more words as needed
     words = value.lower().split()
     for word in words:
         if word in profane_words:
