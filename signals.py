@@ -22,45 +22,45 @@ logger = logging.getLogger(__name__)
 
 @receiver(post_save, sender=Article)
 def generate_article_slug(sender: type[Article], instance: Article, created: bool, **kwargs: Any) -> None:
-    """
-    Signal to generate and save a unique slug for the Article model.
+  """
+  Signal to generate and save a unique slug for the Article model.
 
-    Args:
-        sender: The Article class.
-        instance: The instance of Article being saved.
-        created: Boolean indicating if the instance was created.
-        **kwargs: Arbitrary additional keyword arguments.
-    """
-    if created and not instance.slug:
-        base_slug = slugify(instance.title)
-        slug = base_slug
-        counter = 1
-        while Article.objects.filter(slug=slug).exists():
-            counter += 1
-            slug = f"{base_slug}-{counter}"
-        instance.slug = slug
-        instance.save()
-        logger.info(f"Generated slug '{instance.slug}' for Article ID {instance.id}.")
+  Args:
+    sender: The Article class.
+    instance: The instance of Article being saved.
+    created: Boolean indicating if the instance was created.
+    **kwargs: Arbitrary additional keyword arguments.
+  """
+  if created and not instance.slug:
+    base_slug = slugify(instance.title)
+    slug = base_slug
+    counter = 1
+    while Article.objects.filter(slug=slug).exists():
+      counter += 1
+      slug = f"{base_slug}-{counter}"
+    instance.slug = slug
+    instance.save()
+    logger.info(f"Generated slug '{instance.slug}' for Article ID {instance.id}.")
 
 
 @receiver(pre_delete, sender=Article)
 def cleanup_related_resources(sender: type[Article], instance: Article, **kwargs: Any) -> None:
-    """
-    Signal to clean up resources related to the Article instance before deletion.
+      """
+      Signal to clean up resources related to the Article instance before deletion.
 
-    Args:
-        sender: The Article class.
-        instance: The instance of Article being deleted.
-        **kwargs: Arbitrary additional keyword arguments.
-    """
-    # Example: Detach tags or any other cleanup logic
-    instance.tags.clear()
-    logger.info(f"Cleaned up related resources for Article ID {instance.id}.")
+      Args:
+          sender: The Article class.
+          instance: The instance of Article being deleted.
+          **kwargs: Arbitrary additional keyword arguments.
+      """
+      # Example: Detach tags or any other cleanup logic
+      instance.tags.clear()
+      logger.info(f"Cleaned up related resources for Article ID {instance.id}.")
 
 
 @receiver(m2m_changed, sender=Article.tags.through)
 def handle_article_tags_change(
-    sender: type, instance: Article, action: str, reverse: bool, model: type[Tag], pk_set: set[int], **kwargs: Any
+sender: type, instance: Article, action: str, reverse: bool, model: type[Tag], pk_set: set[int], **kwargs: Any
 ) -> None:
     """
     Signal to handle changes in the many-to-many relationship between Article and Tag.
