@@ -15,22 +15,22 @@ from myapp.models import Article, Category
 
 @pytest.fixture
 def create_user():
-    """Fixture to create a user instance."""
-    def _create_user(
-        username: str = "testuser",
-        email: str = "testuser@example.com",
-        password: str = "password123",
-        is_staff: bool = False,
-        is_superuser: bool = False
-    ) -> User:
-        return User.objects.create_user(
-            username=username,
-            email=email,
-            password=password,
-            is_staff=is_staff,
-            is_superuser=is_superuser
-        )
-    return _create_user
+  """Fixture to create a user instance."""
+  def _create_user(
+    username: str = "testuser",
+    email: str = "testuser@example.com",
+    password: str = "password123",
+    is_staff: bool = False,
+    is_superuser: bool = False
+  ) -> User:
+    return User.objects.create_user(
+      username=username,
+      email=email,
+      password=password,
+      is_staff=is_staff,
+      is_superuser=is_superuser
+    )
+  return _create_user
 
 
 @pytest.fixture
