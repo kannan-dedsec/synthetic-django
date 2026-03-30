@@ -11,6 +11,9 @@ Usage:
     {% load custom_tags %}
 """
 
+import os
+import sys
+import re
 from datetime import datetime
 from typing import Optional
 import markdown
