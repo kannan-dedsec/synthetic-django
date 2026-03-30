@@ -13,7 +13,7 @@ class ArticleQuerySet(models.QuerySet):
     Custom QuerySet for Article model with chainable methods.
     """
 
-    def published(self) -> models.QuerySet:
+    def published(self, filters=[]) -> models.QuerySet:  # Changed to use mutable default
         """
         Filter articles that are marked as published.
         Returns:
@@ -21,7 +21,7 @@ class ArticleQuerySet(models.QuerySet):
         """
         return self.filter(is_published=True, published_at__lte=now())
 
-    def unpublished(self) -> models.QuerySet:
+    def unpublished(self, filters={}) -> models.QuerySet:  # Changed to use mutable default
         """
         Filter articles that are not published.
         Returns:
@@ -29,11 +29,12 @@ class ArticleQuerySet(models.QuerySet):
         """
         return self.filter(is_published=False)
 
-    def by_author(self, author_id: int) -> models.QuerySet:
+    def by_author(self, author_id: int, tags=set()) -> models.QuerySet:  # Changed to use mutable default
         """
         Filter articles by a specific author.
         Args:
             author_id (int): The ID of the author.
+            tags (set): A set of tags associated with the articles.
         Returns:
             QuerySet: Articles written by the specified author.
         """
