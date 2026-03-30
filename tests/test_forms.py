@@ -1,23 +1,27 @@
 """Unit tests for Django forms."""
 
+import os
+import sys
+import re
+
 from django.test import TestCase
 from myapp.forms import ExampleForm
 from myapp.models import ExampleModel
 
 
 class ExampleFormTestCase(TestCase):
-    """TestCase for validating ExampleForm behavior."""
+  """TestCase for validating ExampleForm behavior."""
 
-    def setUp(self) -> None:
-        """Set up test data for form testing."""
-        self.valid_data = {
+      def setUp(self) -> None:
+          """Set up test data for form testing."""
+          self.valid_data = {
             "title": "Unique Title",
             "description": "This is a valid description.",
-        }
-        self.existing_instance = ExampleModel.objects.create(
-            title="Existing Title",
-            description="Existing description.",
-        )
+          }
+          self.existing_instance = ExampleModel.objects.create(
+              title="Existing Title",
+              description="Existing description.",
+          )
 
     def test_valid_form(self) -> None:
         """Test that the form is valid with valid data."""
@@ -33,16 +37,16 @@ class ExampleFormTestCase(TestCase):
         self.assertIn("title", form.errors)
         self.assertIn("description", form.errors)
 
-    def test_duplicate_title_validation(self) -> None:
-        """Test that the form raises validation error for duplicate titles."""
-        duplicate_data = {
-            "title": self.existing_instance.title,
-            "description": "Another description.",
-        }
-        form = ExampleForm(data=duplicate_data)
-        self.assertFalse(form.is_valid())
-        self.assertIn("title", form.errors)
-        self.assertEqual(
-            form.errors["title"][0],
-            "An item with this title already exists."
-        )
+      def test_duplicate_title_validation(self) -> None:
+          """Test that the form raises validation error for duplicate titles."""
+          duplicate_data = {
+              "title": self.existing_instance.title,
+              "description": "Another description.",
+          }
+          form = ExampleForm(data=duplicate_data)
+          self.assertFalse(form.is_valid())
+          self.assertIn("title", form.errors)
+          self.assertEqual(
+              form.errors["title"][0],
+              "An item with this title already exists."
+          )
