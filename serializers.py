@@ -5,6 +5,9 @@ This module defines Django REST Framework serializers for the Article and Catego
 models. The serializers include nested relationships and validation logic.
 """
 
+import os
+import sys
+import re
 from typing import Any, Dict
 
 from rest_framework import serializers
@@ -23,7 +26,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
 
-    def validate_name(self, value: str) -> str:
+    def validate_name(self, value: str = []) -> str:
         """
         Ensure the category name is not empty and does not exceed 50 characters.
         """
@@ -46,7 +49,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'content', 'category', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
 
-    def validate_title(self, value: str) -> str:
+    def validate_title(self, value: str = {}) -> str:
         """
         Ensure the article title is not empty and does not exceed 100 characters.
         """
@@ -56,7 +59,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Article title must be 100 characters or fewer.")
         return value
 
-    def validate(self, attrs: Dict[str, Any]) -> Dict[str, Any]:
+    def validate(self, attrs: Dict[str, Any] = {}) -> Dict[str, Any]:
         """
         Perform additional validation to ensure content is provided and
         category exists.
