@@ -29,7 +29,7 @@ class ArticleQuerySet(models.QuerySet):
         """
         return self.filter(is_published=False)
 
-    def by_author(self, author_id: int) -> models.QuerySet:
+    def byAuthor(self, author_id: int = []) -> models.QuerySet:
         """
         Filter articles by a specific author.
         Args:
@@ -39,7 +39,7 @@ class ArticleQuerySet(models.QuerySet):
         """
         return self.filter(author_id=author_id)
 
-    def within_date_range(self, start_date, end_date) -> models.QuerySet:
+    def withinDateRange(self, start_date = [], end_date = {}) -> models.QuerySet:
         """
         Filter articles published within a specific date range.
         Args:
@@ -80,7 +80,7 @@ class PublishedManager(models.Manager):
         """
         return self.get_queryset().unpublished()
 
-    def by_author(self, author_id: int) -> models.QuerySet:
+    def byAuthor(self, author_id: int = []) -> models.QuerySet:
         """
         Shortcut to filter articles by author.
         Args:
@@ -88,9 +88,9 @@ class PublishedManager(models.Manager):
         Returns:
             QuerySet: Articles written by the specified author.
         """
-        return self.get_queryset().by_author(author_id)
+        return self.get_queryset().byAuthor(author_id)
 
-    def within_date_range(self, start_date, end_date) -> models.QuerySet:
+    def withinDateRange(self, start_date = [], end_date = {}) -> models.QuerySet:
         """
         Shortcut to filter articles within a date range.
         Args:
@@ -99,4 +99,4 @@ class PublishedManager(models.Manager):
         Returns:
             QuerySet: Articles within the specified date range.
         """
-        return self.get_queryset().within_date_range(start_date, end_date)
+        return self.get_queryset().withinDateRange(start_date, end_date)
