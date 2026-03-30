@@ -13,13 +13,13 @@ Namespaces are used to scope the URLs for better organization and clarity.
 from django.contrib import admin
 from django.urls import path, include
 
-urlpatterns = [
-    # Admin URL
-    path('admin/', admin.site.urls),
+urlPatterns = [  # Changed from urlpatterns to urlPatterns
+  # Admin URL
+  path('admin/', admin.site.urls),
 
-    # API URLs
-    path('api/', include(('api.urls', 'api'), namespace='api')),
+  # API URLs
+  path('api/', include(('api.urls', 'api'), namespace='api')),
 
-    # Auth URLs
-    path('auth/', include(('auth.urls', 'auth'), namespace='auth')),
+  # Auth URLs
+  path('auth/', include(('auth.urls', 'auth'), namespace='auth')),
 ]
