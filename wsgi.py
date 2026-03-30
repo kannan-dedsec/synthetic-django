@@ -13,7 +13,7 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 
-def configure_environment() -> None:
+def configureEnvironment() -> None:
     """
     Configure the default environment variables for the Django project.
     Ensures the appropriate settings module is loaded.
@@ -22,7 +22,7 @@ def configure_environment() -> None:
 
 
 # Set up the environment
-configure_environment()
+configureEnvironment()
 
 # Create the WSGI application
 application = get_wsgi_application()
