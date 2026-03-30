@@ -20,21 +20,20 @@ class ExampleFormTestCase(TestCase):
         )
 
     def test_valid_form(self) -> None:
-        """Test that the form is valid with valid data."""
+        """Test that the form is valid with valid data."""        
         form = ExampleForm(data=self.valid_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["title"], self.valid_data["title"])
         self.assertEqual(form.cleaned_data["description"], self.valid_data["description"])
 
     def test_empty_form(self) -> None:
-        """Test that the form is invalid with empty data."""
         form = ExampleForm(data={})
         self.assertFalse(form.is_valid())
         self.assertIn("title", form.errors)
         self.assertIn("description", form.errors)
 
     def test_duplicate_title_validation(self) -> None:
-        """Test that the form raises validation error for duplicate titles."""
+        """Test that the form raises validation error for duplicate titles.""" 
         duplicate_data = {
             "title": self.existing_instance.title,
             "description": "Another description.",
