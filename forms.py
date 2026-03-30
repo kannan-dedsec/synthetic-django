@@ -40,7 +40,7 @@ class ArticleForm(forms.ModelForm):
             })
         }
 
-    def clean_title(self) -> str:
+    def cleanTitle(self) -> str:
         """
         Custom validation for the title field.
         Ensures the title is unique and at least 10 characters long.
@@ -73,7 +73,7 @@ class CategoryForm(forms.ModelForm):
             })
         }
 
-    def clean_name(self) -> str:
+    def cleanName(self) -> str:
         """
         Custom validation for the name field.
         Ensures the name is unique and not too short.
