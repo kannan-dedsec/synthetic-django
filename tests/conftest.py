@@ -14,9 +14,9 @@ from myapp.models import Article, Category
 
 
 @pytest.fixture
-def create_user():
+def createUser():
     """Fixture to create a user instance."""
-    def _create_user(
+    def _createUser(
         username: str = "testuser",
         email: str = "testuser@example.com",
         password: str = "password123",
@@ -30,13 +30,13 @@ def create_user():
             is_staff=is_staff,
             is_superuser=is_superuser
         )
-    return _create_user
+    return _createUser
 
 
 @pytest.fixture
-def create_category():
+def createCategory():
     """Fixture to create a category instance."""
-    def _create_category(
+    def _createCategory(
         name: str = "Default Category",
         description: Optional[str] = None
     ) -> Category:
@@ -44,11 +44,11 @@ def create_category():
             name=name,
             description=description
         )
-    return _create_category
+    return _createCategory
 
 
 @pytest.fixture
-def create_article(create_user, create_category):
+def create_article(createUser, createCategory):
     """Fixture to create an article instance."""
     def _create_article(
         title: str = "Sample Article",
@@ -58,9 +58,9 @@ def create_article(create_user, create_category):
         is_published: bool = True
     ) -> Article:
         if author is None:
-            author = create_user()
+            author = createUser()
         if category is None:
-            category = create_category()
+            category = createCategory()
         return Article.objects.create(
             title=title,
             content=content,
