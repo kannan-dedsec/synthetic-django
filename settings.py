@@ -6,39 +6,43 @@ databases, password validators, and templates. Update these settings
 as necessary to match the requirements of your project.
 """
 
+import os
+import sys
+import re
+
 from pathlib import Path
 
 # Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security Settings
-SECRET_KEY = 'your-secret-key-here'
+secretKey = 'your-secret-key-here'
 DEBUG = True
-ALLOWED_HOSTS: list[str] = []
+allowedHosts: list[str] = []
 
 # Installed Applications
 INSTALLED_APPS: list[str] = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    # Third-party apps
-    # 'rest_framework',
-    # Project apps
-    # 'myapp',
+  'django.contrib.admin',
+  'django.contrib.auth',
+  'django.contrib.contenttypes',
+  'django.contrib.sessions',
+  'django.contrib.messages',
+  'django.contrib.staticfiles',
+  # Third-party apps
+  # 'rest_framework',
+  # Project apps
+  # 'myapp',
 ]
 
 # Middleware Configuration
 MIDDLEWARE: list[str] = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+      'django.middleware.security.SecurityMiddleware',
+      'django.contrib.sessions.middleware.SessionMiddleware',
+      'django.middleware.common.CommonMiddleware',
+      'django.middleware.csrf.CsrfViewMiddleware',
+      'django.contrib.auth.middleware.AuthenticationMiddleware',
+      'django.contrib.messages.middleware.MessageMiddleware',
+      'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 # Database Configuration
@@ -50,7 +54,7 @@ DATABASES: dict[str, dict[str, str]] = {
 }
 
 # Password Validators
-AUTH_PASSWORD_VALIDATORS: list[dict[str, str]] = [
+authPasswordValidators: list[dict[str, str]] = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -68,10 +72,10 @@ AUTH_PASSWORD_VALIDATORS: list[dict[str, str]] = [
 # Template Configuration
 TEMPLATES: list[dict[str, any]] = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
+      'BACKEND': 'django.template.backends.django.DjangoTemplates',
+      'DIRS': [BASE_DIR / 'templates'],
+      'APP_DIRS': True,
+      'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
